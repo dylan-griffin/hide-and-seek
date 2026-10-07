@@ -11,8 +11,13 @@ export default function SignUpPage() {
   const { signUpWithEmail, isLoading } = useAuthStore();
 
   async function handleSignUp() {
+    if (!name.trim()) {
+      Alert.alert("Sign-up Error", "Name is required.");
+      return;
+    }
+
     try {
-      await signUpWithEmail(name, email, password);
+      await signUpWithEmail(name.trim(), email, password);
       if (!isLoading) {
         router.replace("/(tabs)");
       }
